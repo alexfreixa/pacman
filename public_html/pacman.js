@@ -18,7 +18,19 @@ var fantasma3 = [14, 15, 0];
 //JUGADOR, VALORS: [fila(1-29), columna(1-29), direccio(0-3), teclat(0-3)]
 var jugador = [22, 14, 0, 0];
 
-//FILA:         [0, 1, 2, 3, 4, 5, 6, 7, 8, 9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29];
+
+/*
+    2) Ubicar aleatòriament. Inici de movimenT
+
+UBICAR FANTASMES I JUGADOR EN POSICIONS I SEGÜENT DIRECCIÓ VALIDES
+
+    Per als 4 elements que circularan pel tauler, has d’ubicar-los inicialment en un lloc vàlid, i donar-li
+    inicialment una direcció en la qual es desplaçarà. La direcció ha de ser vàlida també, ja que normalment
+    només es pot anar en dues direccions, pot ser que només en sigui una (si es troba l’element al final d’un
+    passadís), tres i fins i tot quatre (en les cruïlles).
+ */ 
+
+//FILA  COLUMNA:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29];
 tauler[0]=      [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
 tauler[1]=      [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1];
 tauler[2]=      [1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1];
@@ -49,5 +61,3 @@ tauler[26]=     [1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 
 tauler[27]=     [1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1];
 tauler[28]=     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1];
 tauler[29]=     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
-
- console.log(tauler);

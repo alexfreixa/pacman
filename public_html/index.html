@@ -8,9 +8,145 @@ and open the template in the editor.
     <head>
         <title>PACMAN</title>
         <meta charset="UTF-8">
-        <script src="pacman.js" type="text/javascript"></script>
+        <link rel="stylesheet" type="text/css" href="style.css">
     </head>
+    
     <body>
-        <h1>PACMAN</h1>
-    </body>
+        
+        <table id="table" cellpadding=4 border="0" style="width:50%;text-align:center;vertical-align:middle" style="align:center">
+            
+            <tr>
+                <th> 0</th>
+                <th> 1</th>
+                <th> 2</th>
+                <th> 3</th>
+                <th> 4</th>
+                <th> 5</th>
+                <th> 6</th>
+                <th> 7</th>
+                <th> 8</th>
+                <th> 9</th>
+                <th>10</th>
+                <th>11</th>
+                <th>12</th>
+                <th>13</th>
+                <th>14</th>
+                <th>15</th>
+                <th>16</th>
+                <th>17</th>
+                <th>18</th>
+                <th>19</th>
+                <th>20</th>
+                <th>21</th>
+                <th>22</th>
+                <th>23</th>
+                <th>24</th>
+                <th>25</th>
+                <th>26</th>
+                <th>27</th>
+                <th>28</th>
+                <th>29</th>
+            </tr>
+        </table>
+        
+        <script>
+            
+            var tauler = [];
+            //FANTASMES, VALORS: [fila(1-28), columna(1-28), direccio(0-3)]
+            var fantasma1 = [14, 13, 0];
+            var fantasma2 = [14, 14, 0];
+            var fantasma3 = [14, 15, 0];
+            //JUGADOR, VALORS: [fila(1-29), columna(1-29), direccio(0-3), teclat(0-3)]
+            var jugador = [22, 14, 0, 0];
+            
+            
+            tauler[0]=      [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
+            tauler[1]=      [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1];
+            tauler[2]=      [1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1];
+            tauler[3]=      [1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1];
+            tauler[4]=      [1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1];
+            tauler[5]=      [1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1];
+            tauler[6]=      [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1];
+            tauler[7]=      [1, 0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1];
+            tauler[8]=      [1, 0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1];
+            tauler[9]=      [1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1];
+            tauler[10]=     [1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1];
+            tauler[11]=     [1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1];
+            tauler[12]=     [1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1];
+            tauler[13]=     [1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1];
+            tauler[14]=     [1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1];
+            tauler[15]=     [1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1];
+            tauler[16]=     [1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1];
+            tauler[17]=     [1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1];
+            tauler[18]=     [1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1];
+            tauler[19]=     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1];
+            tauler[20]=     [1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1];
+            tauler[21]=     [1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1];
+            tauler[22]=     [1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1];
+            tauler[23]=     [1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1];
+            tauler[24]=     [1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1];
+            tauler[25]=     [1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1];
+            tauler[26]=     [1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1];
+            tauler[27]=     [1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1];
+            tauler[28]=     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1];
+            tauler[29]=     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
+            
+            
+            function getRandomInt(min, max) {
+              return Math.floor(Math.random() * (max - min)) + min;
+            }
+            
+            
+            function generarFantasmes() {
+                fantasmes = 0;
+                    do {
+                        var fila = getRandomInt(0, 29);
+                        var columna = getRandomInt(0, 29);
+                        var random_position = tauler[fila][columna];
+                        if (random_position === 0) {
+                            fantasmes++;
+                            tauler[fila][columna] = "F" + fantasmes;
+                            
+                            document.write("FANTASME:::: " + fantasmes + "::::");
+                            document.write("FILA: " + columna);
+                            document.write(" - ");
+                            document.write("COLUMNA: " + fila);
+                            document.write(" - ");
+                            document.write("VALOR: " + random_position);
+                            document.write(" </br> ");
+                        }
+                    } while (fantasmes < 3)
+                
+            }
+            
+            generarFantasmes();
+            
+
+            //==============GENEREM LA TAULA==============//
+            table = document.getElementById("table");
+            for(var i = 0; i < tauler.length; i++)
+            {
+               // create a new row
+               
+               var newRow = table.insertRow(table.length);
+               for(var j = 0; j < tauler[i].length; j++)
+               {
+                   // create a new cell
+                   var cell = newRow.insertCell(j);
+                   
+                   // add value to the cell
+                   cell.innerHTML = tauler[i][j];
+               }
+           }
+            //==============GENEREM LA TAULA==============//
+            
+
+            document.write("FANTASMES GENERATS " + fantasmes);
+            
+            
+                
+        </script>
+    
+    
+    
 </html>
