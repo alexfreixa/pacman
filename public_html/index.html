@@ -96,30 +96,81 @@ and open the template in the editor.
               return Math.floor(Math.random() * (max - min)) + min;
             }
             
+            var files = [];
+            var columnes = [];
             
             function generarFantasmes() {
-                fantasmes = 0;
+                comptador = 0;
                     do {
                         var fila = getRandomInt(0, 29);
                         var columna = getRandomInt(0, 29);
                         var random_position = tauler[fila][columna];
                         if (random_position === 0) {
-                            fantasmes++;
-                            tauler[fila][columna] = "F" + fantasmes;
                             
-                            document.write("FANTASME:::: " + fantasmes + "::::");
-                            document.write("FILA: " + columna);
+                            tauler[fila][columna] = "F" + comptador;
+                            
+                            
+
+                            files.push(fila);
+                            columnes.push(columna);
+                            
+                            document.write("FANTASME:::: " + (comptador) + "::::");
+                            comptador++;
+                            
+                            document.write("COLUMNA " + columna);
                             document.write(" - ");
-                            document.write("COLUMNA: " + fila);
+                            document.write("FILA: " + fila);
                             document.write(" - ");
                             document.write("VALOR: " + random_position);
                             document.write(" </br> ");
                         }
-                    } while (fantasmes < 3)
+                    } while (comptador < 3)
+            }
+            
+            function generarJugador() {
+                jugador = 0;
+                    do {
+                        var fila = getRandomInt(0, 29);
+                        var columna = getRandomInt(0, 29);
+                        var random_position = tauler[fila][columna];
+                        if (random_position === 0) {
+                            jugador++;
+                            tauler[fila][columna] = "JG";
+                            
+                            document.write("::::JUGADOR::::");
+                            document.write("COLUMNA: " + columna);
+                            document.write(" - ");
+                            document.write("FILA: " + fila);
+                            document.write(" - ");
+                            document.write("VALOR: " + random_position);
+                            document.write(" </br> ");
+                        }
+                    } while (jugador < 1)
                 
             }
             
-            generarFantasmes();
+            function mostrarPosicions() {
+                for (i = 0; i < files.length && columnes.length; i++) { 
+                    document.write(files[i]);
+                    document.write(" - ");
+                    document.write(columnes[i]);
+                    document.write("</br>");
+                }  
+            }
+            
+            
+            
+            
+            generarFantasmes(); //La funcio generarà 3 fantasmes a posicions valides (0)
+            generarJugador(); //La funcio generarà 1 jugador a una posició valida (0)
+            mostrarPosicions();
+
+                
+
+            
+            
+            
+            
             
 
             //==============GENEREM LA TAULA==============//
@@ -138,10 +189,9 @@ and open the template in the editor.
                    cell.innerHTML = tauler[i][j];
                }
            }
-            //==============GENEREM LA TAULA==============//
+            //==============TAULA JA GENERADA==============//
             
 
-            document.write("FANTASMES GENERATS " + fantasmes);
             
             
                 
