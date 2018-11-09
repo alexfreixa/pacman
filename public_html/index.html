@@ -1,9 +1,3 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
     <head>
         <title>PACMAN</title>
@@ -51,224 +45,208 @@ and open the template in the editor.
         
         <script>
             
-            var tauler = [];
-            //FANTASMES, VALORS: [fila(1-28), columna(1-28), direccio(0-3)]
-            var fantasma1 = [14, 13, 0];
-            var fantasma2 = [14, 14, 0];
-            var fantasma3 = [14, 15, 0];
-            //JUGADOR, VALORS: [fila(1-29), columna(1-29), direccio(0-3), teclat(0-3)]
-            var jugador = [22, 14, 0, 0];
+            var board = [];
+            var ghost = [];
+            //GHOSTS, VALUES: [row(1-28), column(1-28), direction(0-3)]
+            ghost[0] = [0, 0, ""];
+            ghost[1] = [0, 0, ""];
+            ghost[2] = [0, 0, ""];
+            //PLAYER, VALUES: [row(1-29), column(1-29), direction(0-3), teclat(0-3)]
+            var player = [0, 0, 0, 0];
             
             
-            tauler[0]=      [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
-            tauler[1]=      [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1];
-            tauler[2]=      [1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1];
-            tauler[3]=      [1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1];
-            tauler[4]=      [1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1];
-            tauler[5]=      [1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1];
-            tauler[6]=      [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1];
-            tauler[7]=      [1, 0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1];
-            tauler[8]=      [1, 0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1];
-            tauler[9]=      [1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1];
-            tauler[10]=     [1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1];
-            tauler[11]=     [1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1];
-            tauler[12]=     [1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1];
-            tauler[13]=     [1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1];
-            tauler[14]=     [1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1];
-            tauler[15]=     [1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1];
-            tauler[16]=     [1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1];
-            tauler[17]=     [1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1];
-            tauler[18]=     [1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1];
-            tauler[19]=     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1];
-            tauler[20]=     [1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1];
-            tauler[21]=     [1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1];
-            tauler[22]=     [1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1];
-            tauler[23]=     [1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1];
-            tauler[24]=     [1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1];
-            tauler[25]=     [1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1];
-            tauler[26]=     [1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1];
-            tauler[27]=     [1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1];
-            tauler[28]=     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1];
-            tauler[29]=     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
+            board[0]=      [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
+            board[1]=      [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1];
+            board[2]=      [1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1];
+            board[3]=      [1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1];
+            board[4]=      [1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1];
+            board[5]=      [1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1];
+            board[6]=      [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1];
+            board[7]=      [1, 0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1];
+            board[8]=      [1, 0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1];
+            board[9]=      [1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1];
+            board[10]=     [1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1];
+            board[11]=     [1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1];
+            board[12]=     [1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1];
+            board[13]=     [1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1];
+            board[14]=     [1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1];
+            board[15]=     [1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1];
+            board[16]=     [1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1];
+            board[17]=     [1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1];
+            board[18]=     [1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1];
+            board[19]=     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1];
+            board[20]=     [1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1];
+            board[21]=     [1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1];
+            board[22]=     [1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1];
+            board[23]=     [1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1];
+            board[24]=     [1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1];
+            board[25]=     [1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1];
+            board[26]=     [1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1];
+            board[27]=     [1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1];
+            board[28]=     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1];
+            board[29]=     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
             
             
             function getRandomInt(min, max) {
               return Math.floor(Math.random() * (max - min)) + min;
             }
             
-            var fila_jugador = [];
-            var columna_jugador = [];
-            var fila_columna = [];
+            var row_ghost = [];
+            var column_ghost = [];
+            var ghost = [];
+
             
-            function generarFantasmes() {
-                comptador = 0;
+            function generateGhosts() {
+                var comptador = 0;
                     do {
-                        var fila = getRandomInt(0, 29);
-                        var columna = getRandomInt(0, 29);
-                        var random_position = tauler[fila][columna];
-                        if (random_position === 0) {
+                        var row = getRandomInt(0, 29);
+                        var column = getRandomInt(0, 29);
+                        var posicio_inicial = board[row][column];
+                        if (posicio_inicial === 0) {
                             
-                            tauler[fila][columna] = "F" + comptador;
+                            board[row][column] = "F" + comptador;
                             
-                            fila_jugador.push(fila);
-                            columna_jugador.push(columna);
-                            fila_columna.push(random_position);
+                            row_ghost.push(row);
+                            column_ghost.push(column);
                             
-                            document.write("FANTASME:::: " + (comptador) + "::::");
+                            document.write("GHOST " + (comptador) + " ACTUAL POSITION:: " + "ROW: " + row + " COLUMN: " + column + " VALUE: " + posicio_inicial);
+                            document.write(" </br> ");
+                            
+
                             comptador++;
                             
-                            document.write("FILA: " + fila);
-                            document.write(" - ");
-                            document.write("COLUMNA: " + columna);
-                            document.write(" - ");
-                            document.write("VALOR: " + random_position);
-                            document.write(" </br> ");
-                            
                         }
-                    } while (comptador < 3)
+                    } while (comptador < 3) //creates 3 ghosts on valid positions
             }
             
-            function generarJugador() {
-                jugador = 0;
+            function generatePlayer() {
+                player = 0;
                     do {
-                        var fila = getRandomInt(0, 29);
-                        var columna = getRandomInt(0, 29);
-                        var random_position = tauler[fila][columna];
-                        if (random_position === 0) {
-                            jugador++;
-                            tauler[fila][columna] = "JG";
+                        var row = getRandomInt(0, 29);
+                        var column = getRandomInt(0, 29);
+                        var posicio_inicial = board[row][column];
+                        if (posicio_inicial === 0) {
+                            player++;
+                            board[row][column] = "JG";
                             
-                            document.write("::::JUGADOR::::");
-                            document.write("FILA: " + fila);
-                            document.write(" - ");
-                            document.write("COLUMNA: " + columna);
-                            document.write(" - ");
-                            document.write("VALOR: " + random_position);
+                            document.write("PLAYER " + (player) + " ACTUAL POSITION:: " + "ROW: " + row + " COLUMN: " + column + " VALUE: " + posicio_inicial);
                             document.write(" </br> ");
                         }
-                    } while (jugador < 1)
+                    } while (player < 1) //creates one player
                 
             }
-            
 
-            generarFantasmes(); //La funcio generarà 3 fantasmes a posicions valides (0)
-            generarJugador(); //La funcio generarà 1 jugador a una posició valida (0)
-            
-
-            
-            function comprovarPosicio() {
-                //Primer comprova les posicions valides i les guarda en un array en cas de que ho siguin: perque i = 0
-                for (i = 0; i < fila_jugador.length; i++) {
+            //This next function will need to set a new random valid direction in case the ghost can go straight anymore to it's actual set direction
+            function checkGhostPosition() {
+                //Check new next positions
+                for (i = 0; i < row_ghost.length; i++) {
                     
                     var valid = [];
 
-                    document.write(" </br> ");
+                    resta_fila = (row_ghost[i] - 1);
+                    suma_fila = (row_ghost[i] + 1);
+                    resta_columna = (column_ghost[i] - 1);
+                    suma_columna = (column_ghost[i] + 1);
                     
-                    
-                    //CORREGIR COMPARADORS
-                    //CAL COMPARAR LES POSICIONS DELS ARRAYS COM CORRESPONGUI
-                    //ESTEM COMPARANT CORRECTAMENT?
-                    //HEM DE COMPARAR EL CONTINGUT DE L'ARRAY QUE VOLEM VALIDAR AMB EL !== 1
-                    //SI LA POSICIO ON ESTA ((fila_jugador[i]) - 1 && columna_jugador[i]) no és igual a 1 {}                
-                    //-------------------------------------------
-                    
-                    if (
-                            ((fila_jugador[i]) - 1) && (columna_jugador[i]) !== 1
-                            ){
-                        //pot anar amunt ^
-                        valid.push("amunt");
+                    var amunt = board[resta_fila][column_ghost[i]];
+                    var avall = board[suma_fila][column_ghost[i]];
+                    var esquerra = board[row_ghost[i]][resta_columna];
+                    var dreta = board[row_ghost[i]][suma_columna];
+
+
+                    if (amunt !== 1){
+                        //It can go up ^
+                        valid.push("up");
                     }
                    
-                    if (
-                            ((fila_jugador[i]) + 1) && (columna_jugador[i]) !== 1
-                            ){
-                        //pot anar avall
-                        valid.push("avall");
+                    if (avall !== 1){
+                        //It can go down
+                        valid.push("down");
                     }
                     
-                    if (
-                            (fila_jugador[i] && ((columna_jugador[i]) - 1)) !== 1
-                            ){
-                        //pot anar esquerra <
-                        valid.push("esquerra");
+                    if (esquerra !== 1){
+                        //It can go left <
+                        valid.push("left");
                     }
                     
-                    if (
-                            (fila_jugador[i] && ((columna_jugador[i]) + 1)) !== 1
-                            ){
-                        //pot anar dreta >
-                        valid.push("dreta");
+                    if (dreta !== 1){
+                        //It can go right >
+                        valid.push("right");
                     }
                     
+                    //Once we checked the possible new valid positions, with the array direction we choose only ONE ELEMENT RANDOMLY
+                    var direction = valid[Math.floor(Math.random() * valid.length)];
                     
-                    //------------------------------------------------
+                    rowValid = []; //Set a new array to save the next row valid position for each player
+                    columnValid = []; //Set a new array to save the next column valid position for each player
                     
-                    //De manera aleatoria es defineix a "direccio" la seguent posicions valida on mourem el fantasma (amunt, avall, esquerra, dreta).
-                    //document.write(valid);
-                    var direccio = valid[Math.floor(Math.random() * valid.length)];
+                    //ONLY ONE "direction" WILL BE SENDED BELOW, chosed randomly
                     
-                    valid = [];
-                    filaValida = [];
-                    columnaValida = [];
+                    if (direction === "up") {
+                        //up ^
+                        var rowValid = (row_ghost[i] - 1);
+                        var columnValid = column_ghost[i];
+                    }
+                    
+                    if (direction === "down"){
+                        //down v
+                        rowValid = (row_ghost[i] + 1);
+                        columnValid = column_ghost[i];
+                    }
+                    
+                    if (direction === "left"){
+                        //left <
+                        rowValid = row_ghost[i];
+                        columnValid = (column_ghost[i] - 1);
+                    }
+                    
+                    if (direction === "right"){
+                        //right >
+                        rowValid = row_ghost[i];
+                        columnValid = (column_ghost[i] + 1);
+                    }
+                    
+                    ghost[i] = [row_ghost[i], column_ghost[i], direction];
 
-                    //Un cop es selecciona la direccio valida de manera aleatoria canviarem les variables que corresponguin
-                    if (direccio === "amunt") {
-                        //amunt ^
-                        filaValida = (fila_jugador[i] - 1);
-                        columnaValida = columna_jugador[i];
-                    }
-                    
-                    if (direccio === "avall"){
-                        //avall v
-                        filaValida = (fila_jugador[i] + 1);
-                        columnaValida = columna_jugador[i];
-                    }
-                    
-                    if (direccio === "esquerra"){
-                        //esquerra <
-                        filaValida = fila_jugador[i];
-                        columnaValida = (columna_jugador[i] - 1);
-                    }
-                    
-                    if (direccio === "dreta"){
-                        //dreta >
-                        filaValida = fila_jugador[i];
-                        columnaValida = (columna_jugador[i] + 1);
-                    }
-                    
-                    
-                    document.write("FANTASME:::: " + i + ":::: FILA " + filaValida + " - COLUMNA " + columnaValida);document.write(".          ." +direccio);
+                    document.write("NEXT POSITION OF GHOST:::: " + i + ":::: ROW " + rowValid + " - COLUMN " + columnValid + " (" + direction + ") ///" + "Array fantasme: " + ghost[i]);
+                    document.write("/// Next valid positions taken from this gost were: " + valid + ")"); //As you can see it pushes all positions as valid
                     document.write("</br>");
+                    valid = []; //We empty the array for future checkings
                 }
             }
             
-            //==============GENEREM LA TAULA==============//
+
+            generateGhosts(); //Generate 3 ghosts on valid positions.
+            generatePlayer(); //Generate one player on a valid position.
+
+
+            document.write("</br>");
+            document.write("FUTURE CHECKED PATHS:");
+            document.write("</br></br>");
+            
+            checkGhostPosition();
+
+            for (i = 0; i <ghost.length; i++) {
+                document.write("Valors actuals del fantasma " + i + " son: " + ghost[i]);
+                document.write("</br>");
+            }
+            
+            //==============PRINT TABLE HTML==============//
             table = document.getElementById("table");
-            for(var i = 0; i < tauler.length; i++)
+            for(var i = 0; i < board.length; i++)
             {
                // create a new row
-               
                var newRow = table.insertRow(table.length);
-               for(var j = 0; j < tauler[i].length; j++)
+               for(var j = 0; j < board[i].length; j++)
                {
                    // create a new cell
                    var cell = newRow.insertCell(j);
                    
                    // add value to the cell
-                   cell.innerHTML = tauler[i][j];
+                   cell.innerHTML = board[i][j];
                }
            }
-            //==============TAULA JA GENERADA==============//
-            
-            
-            for (i = 0; i < fila_jugador.length; i++) {
-                document.write(fila_jugador[i]);
-                document.write(" - ");
-                document.write(columna_jugador[i]);
-                document.write("</br>");
-            }
-            
-            comprovarPosicio();
+            //==============TABLE PRINTED==============//
         
         </script>
 </html>
