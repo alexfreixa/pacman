@@ -94,7 +94,9 @@
             var row_ghost = [];
             var column_ghost = [];
             var ghost = [];
-
+            
+            document.write("===========================================");
+            document.write("</br>");
             
             function generateGhosts() {
                 var comptador = 0;
@@ -109,7 +111,7 @@
                             row_ghost.push(row);
                             column_ghost.push(column);
                             
-                            document.write("GHOST " + (comptador) + " ACTUAL POSITION:: " + "ROW: " + row + " COLUMN: " + column + " VALUE: " + posicio_inicial);
+                            document.write("- Ghost" + (comptador) + " generated in position: " + "Row: " + row + " Column: " + column);
                             document.write(" </br> ");
                             
 
@@ -129,7 +131,7 @@
                             player++;
                             board[row][column] = "JG";
                             
-                            document.write("PLAYER " + (player) + " ACTUAL POSITION:: " + "ROW: " + row + " COLUMN: " + column + " VALUE: " + posicio_inicial);
+                            document.write("- Playerr generated in position: " + "Row: " + row + " Column " + column);
                             document.write(" </br> ");
                         }
                     } while (player < 1) //creates one player
@@ -208,8 +210,7 @@
                     
                     ghost[i] = [row_ghost[i], column_ghost[i], direction];
 
-                    document.write("NEXT POSITION OF GHOST:::: " + i + ":::: ROW " + rowValid + " - COLUMN " + columnValid + " (" + direction + ") ///" + "Array fantasme: " + ghost[i]);
-                    document.write("/// Next valid positions taken from this gost were: " + valid + ")"); //As you can see it pushes all positions as valid
+                    document.write("The next position of  <b>Ghost " + i + "</b> will be:  <b>Row " + rowValid + "</b> and  <b>Column " + columnValid + "</b> moving " + direction);
                     document.write("</br>");
                     valid = []; //We empty the array for future checkings
                 }
@@ -220,11 +221,13 @@
             generatePlayer(); //Generate one player on a valid position.
 
 
+            document.write("===========================================");
             document.write("</br>");
-            document.write("FUTURE CHECKED PATHS:");
-            document.write("</br></br>");
             
             checkGhostPosition();
+            
+            document.write("===========================================");
+            document.write("</br>");
 
             for (i = 0; i <ghost.length; i++) {
                 document.write("Valors actuals del fantasma " + i + " son: " + ghost[i]);
